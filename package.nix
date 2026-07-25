@@ -47,12 +47,17 @@ in pkgs.stdenv.mkDerivation {
       fi
     done
 
+    # Symlink logs and temp directories to writable runtime paths
+    ln -sf /tmp/joplin-server-logs "$APP_DIR/logs"
+    ln -sf /tmp/joplin-server-temp "$APP_DIR/temp"
+
     echo "Found Joplin Server app at: $APP_DIR"
 
     # Create binary launcher wrapper targeting Node.js entry point (dist/app.js)
     mkdir -p $out/bin
 
     makeWrapper ${pkgs.nodejs}/bin/node $out/bin/joplin-server \
+      --run "mkdir -p /tmp/joplin-server-logs /tmp/joplin-server-temp" \
       --chdir "$APP_DIR" \
       --add-flags "$APP_DIR/dist/app.js" \
       --set NODE_ENV "production" \

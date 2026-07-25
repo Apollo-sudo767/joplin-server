@@ -1,0 +1,18 @@
+{
+  description = "Joplin Server with Caddy reverse proxy and SMTP Mailer enabled";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    joplin-server.url = "github:user/joplin-server-flake";
+  };
+
+  outputs = { self, nixpkgs, joplin-server }: {
+    nixosConfigurations.joplin-host = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        joplin-server.nixosModules.default
+        ./configuration.nix
+      ];
+    };
+  };
+}

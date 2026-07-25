@@ -22,7 +22,7 @@ A feature-rich, production-grade Nix Flake providing a **NixOS Module** and **Pa
 ```nix
 inputs = {
   nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  joplin-server.url = "github:your-username/joplin-server-flake";
+  joplin-server.url = "github:Apollo-sudo767/joplin-server";
 };
 ```
 
@@ -126,7 +126,7 @@ services.joplin-server = {
 - **Run interactive test CLI**: `nix run .#joplin-server`
 - **Check flake syntax & outputs**: `nix flake check`
 - **Enter dev environment**: `nix develop`
-- **Initialize from template**: `nix flake init -t github:user/joplin-server-flake#postgres-nginx`
+- **Initialize from template**: `nix flake init -t github:Apollo-sudo767/joplin-server#postgres-nginx`
 
 ---
 

@@ -56,8 +56,8 @@ inputs = {
 | `services.joplin-server.baseUrl` | `str` | *required* | Public base URL (e.g. `https://joplin.example.com`) |
 | `services.joplin-server.port` | `port` | `22300` | Port for Joplin Server |
 | `services.joplin-server.host` | `str` | `"127.0.0.1"` | Listening host IP |
-| `services.joplin-server.useContainer` | `bool` | `true` | Toggle between OCI Container or native systemd process |
-| `services.joplin-server.containerImage` | `str` | `"joplin/server:v3.2.1-beta"` | OCI container image tag |
+| `services.joplin-server.useContainer` | `bool` | `false` | Toggle between native systemd process (`false`) or OCI Container (`true`) |
+| `services.joplin-server.containerImage` | `str` | `"docker.io/joplin/server:v3.2.1-beta"` | OCI container image tag |
 | `services.joplin-server.database.type` | `enum` | `"postgres"` | Database type: `"postgres"` or `"sqlite"` |
 | `services.joplin-server.database.createLocally` | `bool` | `true` | Toggle automatic local PostgreSQL db & user creation |
 | `services.joplin-server.database.passwordFile` | `nullOr path` | `null` | Path to DB password file |

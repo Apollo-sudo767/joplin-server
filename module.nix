@@ -63,15 +63,15 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.joplin-server or null;
-      defaultText = literalExpression "pkgs.joplin-server";
+      default = pkgs.joplin-server or (import ./package.nix { inherit pkgs; });
+      defaultText = literalExpression "pkgs.joplin-server or (import ./package.nix { inherit pkgs; })";
       description = "The Joplin Server package to use.";
     };
 
     useContainer = mkOption {
       type = types.bool;
-      default = true;
-      description = "Whether to run Joplin Server inside an OCI container (Podman/Docker).";
+      default = false;
+      description = "Whether to run Joplin Server inside an OCI container (Podman/Docker). Defaults to false (native Nix package).";
     };
 
     containerImage = mkOption {

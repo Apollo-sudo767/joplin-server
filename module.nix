@@ -169,7 +169,7 @@ in {
 
       user = mkOption {
         type = types.str;
-        default = "joplin";
+        default = cfg.user;
         description = "Database user.";
       };
 
@@ -367,15 +367,10 @@ in {
           name = cfg.database.user;
           ensureDBOwnership = true;
         }
-      ];
-      identMap = ''
-        joplin-map ${cfg.user} ${cfg.database.user}
-      '';
-      authentication = mkOverride 10 ''
-        local all all peer map=joplin-map
-        host all all 127.0.0.1/32 trust
-        host all all ::1/128 trust
-      '';
+      ] ++ optional (cfg.user != cfg.database.user) {
+        name = cfg.user;
+        ensureDBOwnership = true;
+      };
     };
 
     # System User / Group setup

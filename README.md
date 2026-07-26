@@ -2,6 +2,9 @@
 
 A feature-rich, production-grade Nix Flake providing a **NixOS Module** and **Package** for [Joplin Server](https://joplinapp.org/) note synchronization server.
 
+> 📦 **Nixpkgs Ready**: This repository is structured and formatted for immediate porting/import into `NixOS/nixpkgs` (under `pkgs/by-name/jo/joplin-server` and `nixos/modules/services/web-apps/joplin-server.nix`).
+> ⚖️ **License Notice**: According to the official Joplin project, Joplin Server is distributed under the **Joplin Server Personal Use License** (Personal / Non-Commercial Use Only). In Nixpkgs, it uses `lib.licenses.unfreeRedistributable`.
+
 ---
 
 ## ⚡ Features & Capabilities
@@ -130,5 +133,18 @@ services.joplin-server = {
 
 ---
 
-## 📄 License
-MIT License
+## 🛠️ Porting to `NixOS/nixpkgs`
+
+This codebase is 100% structured for direct porting into official `NixOS/nixpkgs`:
+
+1. **Package Derivation**: Move `package.nix` → `pkgs/by-name/jo/joplin-server/package.nix` in `nixpkgs`.
+2. **NixOS Service Module**: Move `module.nix` → `nixos/modules/services/web-apps/joplin-server.nix` in `nixpkgs`.
+3. **Module Registration**: Add `./services/web-apps/joplin-server.nix` to `nixos/modules/module-list.nix`.
+4. **Updating Version**: To update Joplin Server to a new upstream version, update `version`, `imageDigest`, and `sha256` in `package.nix`.
+
+---
+
+## 📄 License & Terms
+
+* **Joplin Server Software**: Licensed under the **[Joplin Server Personal Use License](https://github.com/laurent22/joplin/blob/dev/packages/server/LICENSE.md)** (Personal / Non-Commercial Use Only).
+* **Nix Flake & Module Packaging**: MIT License.

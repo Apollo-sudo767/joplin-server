@@ -13,8 +13,10 @@ let
   };
 
 in pkgs.stdenv.mkDerivation {
+  __structuredAttrs = true;
   pname = "joplin-server";
   inherit version;
+  strictDeps = true;
 
   nativeBuildInputs = with pkgs; [ gnutar gzip makeWrapper jq findutils ];
 
@@ -67,7 +69,8 @@ in pkgs.stdenv.mkDerivation {
   meta = with pkgs.lib; {
     description = "Joplin Synchronization Server";
     homepage = "https://joplinapp.org/";
-    license = licenses.agpl3Only;
+    license = licenses.unfreeRedistributable;
+    mainProgram = "joplin-server";
     maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };

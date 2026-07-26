@@ -364,13 +364,26 @@ in {
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [
         {
-          name = cfg.database.user;
+          name = "joplin";
           ensureDBOwnership = true;
         }
-      ] ++ optional (cfg.user != cfg.database.user) {
-        name = cfg.user;
-        ensureDBOwnership = true;
-      };
+        {
+          name = "joplin-server";
+          ensureDBOwnership = true;
+        }
+      ];
+      identMap = ''
+        joplin-map ${cfg.user} joplin
+        joplin-map ${cfg.user} joplin-server
+        joplin-map ${cfg.user} ${cfg.database.user}
+        joplin-map root joplin
+        joplin-map postgres joplin
+      '';
+      authentication = mkOverride 10 ''
+        local all all peer map=joplin-map
+        host all all 127.0.0.1/32 trust
+        host all all ::1/128 trust
+      '';
     };
 
     # System User / Group setup

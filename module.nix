@@ -31,18 +31,15 @@ let
     MAILER_NOREPLY_EMAIL = cfg.mailer.fromEmail;
   }
   // optionalAttrs (cfg.storage.driver == "Filesystem") {
-    STORAGE_DRIVER = "Filesystem";
-    STORAGE_PATH = cfg.storage.path;
+    STORAGE_DRIVER = "Type=Filesystem; Path=${cfg.storage.path}";
   }
   // optionalAttrs (cfg.storage.driver == "Database") {
-    STORAGE_DRIVER = "Database";
+    STORAGE_DRIVER = "Type=Database";
   }
   // optionalAttrs (cfg.storage.driver == "S3") {
-    STORAGE_DRIVER = "S3";
-    STORAGE_S3_BUCKET = cfg.storage.s3.bucket;
-    STORAGE_S3_REGION = cfg.storage.s3.region;
-    STORAGE_S3_ENDPOINT = if cfg.storage.s3.endpoint != null then cfg.storage.s3.endpoint else "";
-    STORAGE_S3_ACCESS_KEY = if cfg.storage.s3.accessKey != null then cfg.storage.s3.accessKey else "";
+    STORAGE_DRIVER = "Type=S3; Bucket=${cfg.storage.s3.bucket}; Region=${cfg.storage.s3.region}"
+      + optionalString (cfg.storage.s3.endpoint != null) "; Endpoint=${cfg.storage.s3.endpoint}"
+      + optionalString (cfg.storage.s3.accessKey != null) "; AccessKeyId=${cfg.storage.s3.accessKey}";
   }
   // cfg.extraEnv;
 

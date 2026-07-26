@@ -169,7 +169,7 @@ in {
 
       user = mkOption {
         type = types.str;
-        default = cfg.user;
+        default = "joplin";
         description = "Database user.";
       };
 
@@ -364,20 +364,16 @@ in {
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [
         {
-          name = "joplin";
+          name = cfg.database.user;
           ensureDBOwnership = true;
         }
-        {
-          name = "joplin-server";
-          ensureDBOwnership = true;
-        }
-      ];
+      ] ++ optional (cfg.user != cfg.database.user) {
+        name = cfg.user;
+      };
       identMap = ''
-        joplin-map ${cfg.user} joplin
-        joplin-map ${cfg.user} joplin-server
         joplin-map ${cfg.user} ${cfg.database.user}
-        joplin-map root joplin
-        joplin-map postgres joplin
+        joplin-map root ${cfg.database.user}
+        joplin-map postgres ${cfg.database.user}
       '';
       authentication = mkOverride 10 ''
         local all all peer map=joplin-map

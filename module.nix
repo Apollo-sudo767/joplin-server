@@ -47,7 +47,7 @@ let
   domainFromUrl = url:
     builtins.head (
       lib.splitString ":" (
-        builtins.replaceStrings [ "https://" "http://" ] [ "" ] url
+        builtins.replaceStrings [ "https://" "http://" ] [ "" "" ] url
       )
     );
 
